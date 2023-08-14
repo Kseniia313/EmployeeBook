@@ -7,16 +7,17 @@ import sky.pro.EmployeeBokVersion1.Exception.EmployeeStorageIsFullException;
 import sky.pro.EmployeeBokVersion1.dto.Employee;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 
 public class EmployeeServiceImpl implements EmployeeService {
-    private List<Employee> employees;
+    private final Map<String, Employee> employees;
     private static final int EMPLOYEE_SIZE = 5;
 
-    public EmployeeServiceImpl(List<Employee> employees) {
-        this.employees = employees;
+    public EmployeeServiceImpl() {
+        this.employees = new HashMap<>();
     }
 
     @Override
@@ -25,36 +26,47 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employees.size() == EMPLOYEE_SIZE) {
             throw new EmployeeStorageIsFullException();
         }
-        Employee employee = new Employee(firstName, lastName);
-        if (employees.contains(employee)) {
+
+        String key = generateKey(firstName, lastName);
+        if (employees.containsKey(key)) {
             throw new EmployeeAlreadyAddedException();
         }
-        employees.add(employee);
+        Employee employee = new Employee(firstName, lastName);
+        employees.put(key, employee);
         return employee;
     }
 
     @Override
     public Employee removeEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (!employees.remove(employee)) {
+
+        String key = generateKey(firstName, lastName);
+        Employee employee = employees.remove(key);
+
+        if (employee == null) {
             throw new EmployeeNotFoundException();
         }
-        employees.remove(employee);
+
         return employee;
     }
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (!employees.contains(employee)) {
+        String key = firstName + lastName;
+        Employee employee = employees.get(key);
+
+        if (employee == null) {
             throw new EmployeeNotFoundException();
         }
-        employees.contains(employee);
+
         return employee;
     }
 
     @Override
     public Collection<Employee> getAll() {
-        return employees;
+        return employees.values();
+    }
+
+    private String generateKey(String firstName, String lastName) {
+        return firstName + lastName;
     }
 }
