@@ -57,5 +57,4 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Collection<Employee> getAll() {
         return employees;
     }
-
 }
