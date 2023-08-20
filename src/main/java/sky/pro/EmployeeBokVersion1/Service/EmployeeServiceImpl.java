@@ -21,11 +21,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
 
-    public Employee addEmployee(String firstName, String lastName) {
+    public Employee addEmployee(String firstName, String lastName, int department, int salary) {
         if (employees.size() == EMPLOYEE_SIZE) {
             throw new EmployeeStorageIsFullException();
         }
-        Employee employee = new Employee(firstName, lastName);
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (employees.contains(employee)) {
             throw new EmployeeAlreadyAddedException();
         }
@@ -34,8 +34,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee removeEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee removeEmployee(String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName,department,salary);
         if (!employees.remove(employee)) {
             throw new EmployeeNotFoundException();
         }
@@ -44,8 +44,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee findEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee findEmployee(String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department,salary);
         if (!employees.contains(employee)) {
             throw new EmployeeNotFoundException();
         }
