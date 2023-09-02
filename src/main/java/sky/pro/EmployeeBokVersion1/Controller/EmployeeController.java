@@ -1,4 +1,4 @@
-package sky.pro.EmployeeBokVersion1;
+package sky.pro.EmployeeBokVersion1.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,20 +21,27 @@ public class EmployeeController {
 
     @GetMapping("/add")
     public Employee addEmployee(@RequestParam String firstName,
-                                @RequestParam String lastName) {
-        return employeeService.addEmployee(firstName, lastName);
+                                @RequestParam String lastName,
+                                @RequestParam int department,
+                                @RequestParam int salary) {
+        return employeeService.addEmployee(firstName, lastName, department,salary);
     }
 
     @GetMapping("/remove")
     public Employee removeEmployy(@RequestParam String firstName,
-                                  @RequestParam String lastName) {
-        return employeeService.removeEmployee(firstName, lastName);
+                                  @RequestParam String lastName,
+                                  @RequestParam int department,
+                                  @RequestParam int salary
+                                  ) {
+        return employeeService.removeEmployee(firstName, lastName, department,salary);
     }
 
     @GetMapping("/find")
     public Employee findEmployee(@RequestParam String firstName,
-                                 @RequestParam String lastName) {
-        return employeeService.findEmployee(firstName, lastName);
+                                 @RequestParam String lastName,
+                                 @RequestParam int department,
+                                 @RequestParam int salary) {
+        return employeeService.findEmployee(firstName, lastName,department,salary );
     }
 
     @GetMapping

@@ -13,60 +13,54 @@ import java.util.Map;
 @Service
 
 public class EmployeeServiceImpl implements EmployeeService {
-    private final Map<String, Employee> employees;
+    private List <Employee> employees;
     private static final int EMPLOYEE_SIZE = 5;
 
-    public EmployeeServiceImpl() {
-        this.employees = new HashMap<>();
+    public EmployeeServiceImpl(List <Employee> employees) {
+        this.employees=employees;
     }
 
     @Override
 
-    public Employee addEmployee(String firstName, String lastName) {
+    public Employee addEmployee(String firstName, String lastName, int department, int salary) {
         if (employees.size() == EMPLOYEE_SIZE) {
             throw new EmployeeStorageIsFullException();
         }
 
-        String key = generateKey(firstName, lastName);
-        if (employees.containsKey(key)) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
+        if (employees.contains(employee)) {
+     
             throw new EmployeeAlreadyAddedException();
         }
-        Employee employee = new Employee(firstName, lastName);
-        employees.put(key, employee);
+      employees.add(employee);
         return employee;
     }
 
     @Override
-    public Employee removeEmployee(String firstName, String lastName) {
 
-        String key = generateKey(firstName, lastName);
-        Employee employee = employees.remove(key);
-
-        if (employee == null) {
+    public Employee removeEmployee(String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName,department,salary);
+        if (!employees.remove(employee)) {
             throw new EmployeeNotFoundException();
         }
-
+      employees.remove(employee);
         return employee;
     }
 
     @Override
-    public Employee findEmployee(String firstName, String lastName) {
-        String key = firstName + lastName;
-        Employee employee = employees.get(key);
 
-        if (employee == null) {
+    public Employee findEmployee(String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department,salary);
+        if (!employees.contains(employee)) 
             throw new EmployeeNotFoundException();
         }
-
+employees.contains(employee);
         return employee;
     }
 
     @Override
     public Collection<Employee> getAll() {
-        return employees.values();
+        return employees;
     }
-
-    private String generateKey(String firstName, String lastName) {
-        return firstName + lastName;
-    }
+    
 }
