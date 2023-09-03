@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sky.pro.EmployeeBokVersion1.Service.EmployeeService;
+
+import sky.pro.EmployeeBokVersion1.Util.EmployeeNameValidator;
 import sky.pro.EmployeeBokVersion1.dto.Employee;
 
 import java.util.Collection;
@@ -24,6 +26,7 @@ public class EmployeeController {
                                 @RequestParam String lastName,
                                 @RequestParam int department,
                                 @RequestParam int salary) {
+        EmployeeNameValidator.employeeNameIsAlpha(firstName,lastName);
         return employeeService.addEmployee(firstName, lastName, department,salary);
     }
 
@@ -33,6 +36,7 @@ public class EmployeeController {
                                   @RequestParam int department,
                                   @RequestParam int salary
                                   ) {
+        EmployeeNameValidator.employeeNameIsAlpha(firstName,lastName);
         return employeeService.removeEmployee(firstName, lastName, department,salary);
     }
 
@@ -41,11 +45,13 @@ public class EmployeeController {
                                  @RequestParam String lastName,
                                  @RequestParam int department,
                                  @RequestParam int salary) {
+        EmployeeNameValidator.employeeNameIsAlpha(firstName,lastName);
         return employeeService.findEmployee(firstName, lastName,department,salary );
     }
 
     @GetMapping
-    public Collection<Employee> getAll() {
+    public Collection<Employee> getAll()
+    {
         return employeeService.getAll();
     }
 }
