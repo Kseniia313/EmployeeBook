@@ -34,6 +34,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public Integer returnSumSalaryInDepartment(int department) {
+        return employeeService.getAll().stream()
+                .filter(employee -> employee.getDepartment() == department)
+                .collect(Collectors.summingInt(empl -> empl.getSalary()));
+    }
+
+    @Override
     public List<Employee> returnAllEmployeesInDepartment(int department) {
         return employeeService.getAll().stream()
                 .filter(e->e.getDepartment()==department)

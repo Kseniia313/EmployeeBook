@@ -9,9 +9,9 @@ import sky.pro.EmployeeBokVersion1.dto.Employee;
 
 
 import java.util.Collection;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 @Service
 
@@ -19,9 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private List<Employee> employees;
     private static final int EMPLOYEE_SIZE = 5;
 
-    public EmployeeServiceImpl(List<Employee> employees) {
-        this.employees = employees;
-    }
+
 
     @Override
 
