@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class DepartmentServiceImpl implements DepartmentService {
     private EmployeeService employeeService;
 
-    public DepartmentServiceImpl(EmployeeService employeeService) {
+    public DepartmentServiceImpl() {
         this.employeeService = employeeService;
     }
 
@@ -22,7 +22,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         return employeeService.getAll().stream()
                 .filter(employee -> employee.getDepartment() == department)
                 .max(Comparator.comparingInt(empl -> empl.getSalary()))
-                .orElseThrow(()-> new EmployeeNotFoundException());
+                .orElseThrow(() -> new EmployeeNotFoundException());
     }
 
     @Override
@@ -33,18 +33,18 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .orElseThrow(() -> new EmployeeNotFoundException());
     }
 
-    @Override
+    /*@Override
     public Integer returnSumSalaryInDepartment(int department) {
         return employeeService.getAll().stream()
                 .filter(employee -> employee.getDepartment() == department)
                 .collect(Collectors.summingInt(empl -> empl.getSalary()));
-    }
+    }*/
 
     @Override
-    public List<Employee> returnAllEmployeesInDepartment(int department) {
+    public List<Employee> getAllEmployeesInDepartment(int department) {
         return employeeService.getAll().stream()
-                .filter(e->e.getDepartment()==department)
-                .collect(Collectors.toList());
+                .filter(e -> e.getDepartment() == department)
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @Override

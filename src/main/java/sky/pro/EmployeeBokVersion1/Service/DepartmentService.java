@@ -10,12 +10,11 @@ public interface DepartmentService {
 
     Employee findMinimumSalary(int department);
 
-    Integer returnSumSalaryInDepartment(int department);
+    /*Integer returnSumSalaryInDepartment(int department);*/
 
-    List<Employee> returnAllEmployeesInDepartment(int department);
+    List<Employee> getAllEmployeesInDepartment(int department);
 
     Map<Integer, List<Employee>> getAll();
-
 
 
 }

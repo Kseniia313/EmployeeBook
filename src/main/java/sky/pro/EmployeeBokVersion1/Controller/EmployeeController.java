@@ -26,8 +26,8 @@ public class EmployeeController {
                                 @RequestParam String lastName,
                                 @RequestParam int department,
                                 @RequestParam int salary) {
-        EmployeeNameValidator.employeeNameIsAlpha(firstName,lastName);
-        return employeeService.addEmployee(firstName, lastName, department,salary);
+        EmployeeNameValidator.employeeNameIsAlpha(firstName, lastName);
+        return employeeService.addEmployee(firstName, lastName, department, salary);
     }
 
     @GetMapping("/remove")
@@ -35,9 +35,9 @@ public class EmployeeController {
                                   @RequestParam String lastName,
                                   @RequestParam int department,
                                   @RequestParam int salary
-                                  ) {
-        EmployeeNameValidator.employeeNameIsAlpha(firstName,lastName);
-        return employeeService.removeEmployee(firstName, lastName, department,salary);
+    ) {
+        EmployeeNameValidator.employeeNameIsAlpha(firstName, lastName);
+        return employeeService.removeEmployee(firstName, lastName, department, salary);
     }
 
     @GetMapping("/find")
@@ -45,13 +45,12 @@ public class EmployeeController {
                                  @RequestParam String lastName,
                                  @RequestParam int department,
                                  @RequestParam int salary) {
-        EmployeeNameValidator.employeeNameIsAlpha(firstName,lastName);
-        return employeeService.findEmployee(firstName, lastName,department,salary );
+        EmployeeNameValidator.employeeNameIsAlpha(firstName, lastName);
+        return employeeService.findEmployee(firstName, lastName, department, salary);
     }
 
     @GetMapping
-    public Collection<Employee> getAll()
-    {
+    public Collection<Employee> getAll() {
         return employeeService.getAll();
     }
 }
