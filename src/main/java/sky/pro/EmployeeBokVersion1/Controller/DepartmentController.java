@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/departments")
+@RequestMapping("/department")
 public class DepartmentController {
     private final DepartmentService departmentService;
 
@@ -29,13 +29,18 @@ public class DepartmentController {
         return departmentService.findMinimumSalary(department);
     }
 
+   /* @GetMapping("/sum-salary")
+    public Integer returnMaxSalary(@RequestParam int department) {
+        return departmentService.returnSumSalaryInDepartment(department);
+    }*/
+
     @GetMapping(value = "/all", params = "department")
     public List<Employee> returnAllEmployeesInDepartment(@RequestParam int department) {
-        return departmentService.returnAllEmployeesInDepartment(department);
+        return departmentService.getAllEmployeesInDepartment(department);
     }
 
-@GetMapping("/all")
+    @GetMapping("/all")
     public Map<Integer, List<Employee>> getAll() {
-       return departmentService.getAll();
+        return departmentService.getAll();
     }
 }
